@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  API:
+    image: datascientest/fastapi:1.0.0
+    container_name: datascientest_fastAPI
+    networks:
+      - test_api_network
+    ports:
+      - target: 8000
+        published: 8000
+        protocol: tcp
+  test_content:
+    image: test_content:latest
+    container_name: test_content
+    networks:
+      - test_api_network
+    volumes:
+      - .:/home/logs/
+    environment:
+      LOG: 1
+  test_authentication:
+    image: test_authentication:latest
+    container_name: test_authentication
+    networks:
+      - test_api_network
+    volumes:
+      - .:/home/logs/
+    environment:
+      LOG: 1
+  test_authorization:
+    image: test_authorization:latest
+    container_name: test_authorization
+    networks:
+      - test_api_network
+    volumes:
+      - .:/home/logs/
+    environment:
+      LOG: 1
+networks:
+  test_api_network:
+
